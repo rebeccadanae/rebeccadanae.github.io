@@ -11,24 +11,35 @@
 .short{
   height: 150px;
 }
+.footer{
+  height: 200px;
+  margin-left: auto;
+}
+
 .tall{
-  height: 350px;
+  height: 500px;
 }
 .section {
   width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 .header{
   font-weight: bold;
   font-size: 20px;
 }
-
+.thp-logo-container {
+    width: 100%;
+    max-width: 150px;
+    padding: 0 10px;
+    margin-left: auto;
+}
 
 /* Mobile Styles */
 @media only screen and (max-width: 400px) {
-
+.thp-logo-container{
+  display:none;
+}
 }
 
 /* Tablet Styles */
