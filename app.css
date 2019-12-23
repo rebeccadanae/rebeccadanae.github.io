@@ -4,18 +4,6 @@
   display: flex;
   flex-wrap: wrap;
 }
-
-#graphs{
-  width: 100%;
-}
-.short{
-  height: 150px;
-}
-.footer{
-  height: 200px;
-  margin-left: auto;
-}
-
 .tall{
   height: 500px;
 }
@@ -36,8 +24,6 @@
 }
 .source-container {
     width: 50%;
-
-
 }
 .left-align{
   padding: 30px 20px;
@@ -65,11 +51,7 @@
 @media only screen and (min-width: 401px) and (max-width: 960px) {
 
   .graph-left,
-  .graph-right,
-  .zip-code-search,
-  .graph-legend,
-  .source,
-  .THP-logo{
+  .graph-right{
     width: 50%
   }
 }
@@ -81,11 +63,7 @@
     margin: 0 auto;
   }
   .graph-left,
-  .graph-right,
-  .zip-code-search,
-  .graph-legend,
-  .source,
-  .THP-logo{
+  .graph-right{
     width: 50%
   }
 
