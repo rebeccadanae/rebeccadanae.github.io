@@ -29,16 +29,27 @@
   font-size: 20px;
 }
 .thp-logo-container {
-    width: 100%;
+    width: 50%;
     max-width: 150px;
     padding: 0 10px;
     margin-left: auto;
+}
+.source-container {
+    width: 50%;
+    padding: 30px 20px;;
+    margin-right: auto;
+
 }
 
 /* Mobile Styles */
 @media only screen and (max-width: 400px) {
 .thp-logo-container{
   display:none;
+}
+.source-container {
+    padding: 30px 20px;;
+    margin: auto;
+    text-align: center;
 }
 }
 
