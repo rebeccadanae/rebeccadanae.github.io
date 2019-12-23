@@ -1,2 +1,33 @@
-"use strict";!function(){function n(){for(var n=.5,o=function n(){return t(.5)},r=[1e3,1e4,1e5,1e6,1e7],i=void 0,a=void 0,c=void 0,u=r.length-1;u>=0;u--){for(i=a=c=0;c<r[u];)o()?i++:a++,c++;console.log("Variations: "+r[u].toLocaleString()+"\nA/B: "+e(i/r[u])+"%/"+e(a/r[u])+"%")}}var t=function n(t){return Math.random()>t},e=function n(t){return(100*t).toFixed(2)};document.addEventListener("readystatechange",function(){"interactive"===document.readyState&&n()},!1)}();
-//# sourceMappingURL=./app.js.map
+"use strict";
+!(function() {
+  function analytics(action) {
+    var label =
+      1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : "null";
+    window.dataLayer.push({
+      event: "Interactive",
+      category: "Interactive",
+      action: action,
+      label: label
+    });
+  }
+  console.log("test");
+
+  function addFormElements() {
+  }
+  function buildGraphs() {
+
+  }
+  function app() {
+
+  }
+
+
+  document.addEventListener(
+    "readystatechange",
+    function() {
+      "interactive" === document.readyState && app(),
+        "complete" === document.readyState && buildGraphs();
+    },
+    !1
+  );
+})();
