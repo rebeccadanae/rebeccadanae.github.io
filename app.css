@@ -27,8 +27,6 @@
 .title-container{
   font-weight: bold;
   font-size: 20px;
-  height: 50px;
-  padding: 30px 20px;
 }
 .thp-logo-container {
     width: 50%;
@@ -38,9 +36,17 @@
 }
 .source-container {
     width: 50%;
-    padding: 30px 20px;
-    margin-right: auto;
 
+
+}
+.left-align{
+  padding: 30px 20px;
+  margin-right: auto;
+}
+.center-align{
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
 }
 
 /* Mobile Styles */
@@ -48,8 +54,7 @@
 .thp-logo-container{
   display:none;
 }
-.source-container,
-.title-container {
+.source-container {
     padding: 30px 20px;;
     margin: auto;
     text-align: center;
