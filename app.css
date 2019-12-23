@@ -35,6 +35,14 @@
   text-align: center;
 }
 
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+
 /* Mobile Styles */
 @media only screen and (max-width: 400px) {
 .logo-container{
