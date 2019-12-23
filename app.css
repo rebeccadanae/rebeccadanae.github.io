@@ -16,7 +16,7 @@
   font-weight: bold;
   font-size: 20px;
 }
-.thp-logo-container {
+.logo-container {
     width: 50%;
     max-width: 150px;
     padding: 0 10px;
@@ -37,7 +37,7 @@
 
 /* Mobile Styles */
 @media only screen and (max-width: 400px) {
-.thp-logo-container{
+.logo-container{
   display:none;
 }
 .source-container {
