@@ -17,7 +17,7 @@
 
   }
   function app() {
-    var margin = {top: 60, right: 60, bottom: 100, left: 60},
+    var margin = {top: 60, right: 60, bottom: 100, left: 100},
     width = 400 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -76,11 +76,12 @@ var svg = d3.select(".graph-left").append("svg")
 
             svg.append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("y", 6)
+                .attr("y", -50)
+                .attr("x", -10)
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .style('font-weight','bold')
-                .text("Value");
+                .text("Percent decrease in eligibility");
 
 
             svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');

@@ -44,7 +44,9 @@
     stroke: black;
 	  shape-rendering: crispEdges;
 	}
-
+  .y.axis path {
+    display: none;
+  }
 
 /* Mobile Styles */
 @media only screen and (max-width: 400px) {
