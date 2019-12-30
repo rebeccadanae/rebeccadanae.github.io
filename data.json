@@ -1,0 +1,36 @@
+[
+    {
+        "categorie": "US population",
+        "values": [
+            {
+                "value": 0,
+                "rate": "Not at all"
+            },
+            {
+                "value": 4,
+                "rate": "Not very much"
+            },
+            {
+                "value": 12,
+                "rate": "Medium"
+            }
+        ]
+    },
+    {
+        "categorie": "ABAWD on SNAP",
+        "values": [
+            {
+                "value": 1,
+                "rate": "Not at all"
+            },
+            {
+                "value": 21,
+                "rate": "Not very much"
+            },
+            {
+                "value": 13,
+                "rate": "Medium"
+            }
+        ]
+    }
+]
