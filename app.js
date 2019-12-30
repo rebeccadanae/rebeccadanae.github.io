@@ -61,7 +61,7 @@ var svg = d3.select(".graph-left").append("svg")
             var rateNames = data[0].values.map(function(d) { return d.rate; });
 
             x0.domain(categoriesNames);
-            x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()]);
+            x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()], .2);
             y.domain([0, d3.max(data, function(categorie) { return d3.max(categorie.values, function(d) { return d.value; }); })]);
 
             svg.append("g")
