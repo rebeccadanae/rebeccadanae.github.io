@@ -83,6 +83,12 @@ var svg = d3.select(".graph-left").append("svg")
                 .style('font-weight','bold')
                 .text("Percent decrease in eligibility");
 
+            svg.append("text")
+                .attr("y", 285)
+                .attr("x", 80)
+                .style('font-weight', 'bold')
+                .style('font-size', 18)
+                .text("June 2009")
 
             svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
 
