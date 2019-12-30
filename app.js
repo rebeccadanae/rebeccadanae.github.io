@@ -39,6 +39,7 @@ var xAxis = d3.svg.axis()
 
 var yAxis = d3.svg.axis()
     .scale(y)
+    .tickSize(0)
     .orient("left");
 
 var color = d3.scale.ordinal()
