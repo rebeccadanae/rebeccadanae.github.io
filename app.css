@@ -35,12 +35,13 @@
   text-align: center;
 }
 .tick line{
-  stroke: #cccccc;
+  opacity: 0.2;
 }
 
 	.axis path,
 	.axis line {
 	  fill: none;
+    stroke: black;
 	  shape-rendering: crispEdges;
 	}
 
