@@ -42,7 +42,7 @@ var yAxis = d3.svg.axis()
     .orient("left");
 
 var color = d3.scale.ordinal()
-    .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"]);
+    .range(["#053769","#65a4e5","#ff5e1a"]);
 
 var svg = d3.select(".graph-left").append("svg")
     .attr("width", width + margin.left + margin.right)
