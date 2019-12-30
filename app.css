@@ -34,11 +34,13 @@
   margin: 0 auto;
   text-align: center;
 }
+.tick line{
+  stroke: #cccccc;
+}
 
 	.axis path,
 	.axis line {
 	  fill: none;
-	  stroke: #000;
 	  shape-rendering: crispEdges;
 	}
 

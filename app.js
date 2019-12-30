@@ -39,11 +39,14 @@ var xAxis = d3.svg.axis()
 
 var yAxis = d3.svg.axis()
     .scale(y)
-    .tickSize(0)
-    .orient("left");
+    .orient("left")
+    .innerTickSize(-width)
+    .outerTickSize(0)
+    .tickPadding(10);
 
 var color = d3.scale.ordinal()
     .range(["#053769","#65a4e5","#ff5e1a"]);
+
 
 var svg = d3.select(".graph-left").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -70,13 +73,15 @@ var svg = d3.select(".graph-left").append("svg")
                 .attr("class", "y axis")
                 .style('opacity','0')
                 .call(yAxis)
-            .append("text")
+
+            svg.append("text")
                 .attr("transform", "rotate(-90)")
                 .attr("y", 6)
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .style('font-weight','bold')
                 .text("Value");
+
 
             svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
 
