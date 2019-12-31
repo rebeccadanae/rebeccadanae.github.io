@@ -3,16 +3,16 @@
         "categorie": "US population",
         "values": [
             {
-                "value": 0,
-                "rate": "Not at all"
+                "value": 0.72669566,
+                "rate": "National"
             },
             {
-                "value": 4,
-                "rate": "Not very much"
+                "value": 0.77781403,
+                "rate": "State"
             },
             {
-                "value": 12,
-                "rate": "Medium"
+                "value": 1,
+                "rate": "County"
             }
         ]
     },
@@ -20,16 +20,16 @@
         "categorie": "ABAWD on SNAP",
         "values": [
             {
+                "value": 0.61341631,
+                "rate": "National"
+            },
+            {
+                "value": 0.60051888,
+                "rate": "State"
+            },
+            {
                 "value": 1,
-                "rate": "Not at all"
-            },
-            {
-                "value": 21,
-                "rate": "Not very much"
-            },
-            {
-                "value": 13,
-                "rate": "Medium"
+                "rate": "County"
             }
         ]
     }
