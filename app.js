@@ -21,9 +21,6 @@
     width = 400 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-// Parse the date / time
-var	parseDate = d3.time.format("%Y-%m").parse;
-
 var x0 = d3.scale.ordinal()
     .rangeRoundBands([0, width], .2);
 
