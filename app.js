@@ -115,8 +115,8 @@ var svg = d3.select(".graph-left").append("svg")
                 .transition()
                 .delay(function (d) {return Math.random()*1000;})
                 .duration(1000)
-                .attr("y", function(d) { return y(d.value); })
-                .attr("height", function(d) { return height - y(d.value); });
+                .attr("y", function(d) { return 0; })
+                .attr("height", function(d) { return y(d.value); });
 });
   }
 
