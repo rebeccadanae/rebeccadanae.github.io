@@ -54,13 +54,12 @@ var svg = d3.select(".graph-left").append("svg")
 
           d3.json("data.json", function(error, data) {
 
-            console.log(d3.min(data, function(categorie) { return d3.min(categorie.values, function(d) { return d.value; }); }));
             var categoriesNames = data.map(function(d) { return d.categorie; });
             var rateNames = data[0].values.map(function(d) { return d.rate; });
 
             x0.domain(categoriesNames);
             x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()], .2);
-            y.domain([0, d3.max(data, function(categorie) { return d3.max(categorie.values, function(d) { return d.value; }); })]);
+            y.domain([0, d3.max(data, function(categorie) { return d3.max(categorie.values, function(d) { return 100*(d.value); }); })]);
 
             svg.append("g")
                 .attr("class", "x axis")
@@ -116,7 +115,7 @@ var svg = d3.select(".graph-left").append("svg")
                 .delay(function (d) {return Math.random()*1000;})
                 .duration(1000)
                 .attr("y", function(d) { return 0; })
-                .attr("height", function(d) { return y(d.value); });
+                .attr("height", function(d) { return y(100*(d.value)); });
 });
   }
 
