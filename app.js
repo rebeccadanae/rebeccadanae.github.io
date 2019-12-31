@@ -102,8 +102,8 @@ var svg = d3.select(".graph-left").append("svg")
                 .attr("width", x1.rangeBand())
                 .attr("x", function(d) { return x1(d.rate); })
                 .style("fill", function(d) { return color(d.rate) })
-                .attr("y", function(d) { return y(0); })
-                .attr("height", function(d) { return height - y(0); })
+                .attr("y", function(d) { return 0; })
+                .attr("height", function(d) { return y(0); })
                 .on("mouseover", function(d) {
                     d3.select(this).style("fill", d3.rgb(color(d.rate)).darker(2));
                 })
