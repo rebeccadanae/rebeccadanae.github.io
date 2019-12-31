@@ -54,6 +54,7 @@ var svg = d3.select(".graph-left").append("svg")
 
           d3.json("data.json", function(error, data) {
 
+            console.log(d3.min(data, function(categorie) { return d3.min(categorie.values, function(d) { return d.value; }); }));
             var categoriesNames = data.map(function(d) { return d.categorie; });
             var rateNames = data[0].values.map(function(d) { return d.rate; });
 
@@ -63,7 +64,6 @@ var svg = d3.select(".graph-left").append("svg")
 
             svg.append("g")
                 .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
                 .call(xAxis);
 
             svg.append("g")
