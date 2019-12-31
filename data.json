@@ -3,15 +3,15 @@
         "categorie": "US population",
         "values": [
             {
-                "value": -0.72669566,
+                "value": 0.72669566,
                 "rate": "National"
             },
             {
-                "value": -0.77781403,
+                "value": 0.77781403,
                 "rate": "State"
             },
             {
-                "value": -1,
+                "value": 1,
                 "rate": "County"
             }
         ]
@@ -20,15 +20,15 @@
         "categorie": "ABAWD on SNAP",
         "values": [
             {
-                "value": -0.61341631,
+                "value": 0.61341631,
                 "rate": "National"
             },
             {
-                "value": -0.60051888,
+                "value": 0.60051888,
                 "rate": "State"
             },
             {
-                "value": -1,
+                "value": 1,
                 "rate": "County"
             }
         ]

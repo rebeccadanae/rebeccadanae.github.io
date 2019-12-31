@@ -27,12 +27,12 @@ var x0 = d3.scale.ordinal()
 var x1 = d3.scale.ordinal();
 
 var y = d3.scale.linear()
-    .range([height, 0]);
+    .range([0, height]);
 
 var xAxis = d3.svg.axis()
     .scale(x0)
     .tickSize(0)
-    .orient("bottom");
+    .orient("top");
 
 var yAxis = d3.svg.axis()
     .scale(y)
@@ -64,6 +64,7 @@ var svg = d3.select(".graph-left").append("svg")
 
             svg.append("g")
                 .attr("class", "x axis")
+
                 .call(xAxis);
 
             svg.append("g")
