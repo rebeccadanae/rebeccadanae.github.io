@@ -37,6 +37,9 @@
 .tick line{
   opacity: 0.2;
 }
+.tick text{
+  font-size: 14px;
+}
 
 	.axis path,
 	.axis line {
