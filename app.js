@@ -25,7 +25,7 @@
 var	parseDate = d3.time.format("%Y-%m").parse;
 
 var x0 = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
+    .rangeRoundBands([0, width], .2);
 
 var x1 = d3.scale.ordinal();
 
