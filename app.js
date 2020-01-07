@@ -11,8 +11,6 @@
     });
   }
 
-  console.log("test");
-
   function buildGraphs() {
 
   }
@@ -138,8 +136,7 @@ var svg = d3.select(".graph-left").append("svg")
 
 
             var categoryNames = jsonData.map(function(d) { return d.categories[0].category; });
-            console.log(jsonData);
-            console.log(dates);
+
 
             var categoryNames = ["US population", "ABAWD on SNAP"]
 
@@ -178,9 +175,7 @@ var svg = d3.select(".graph-left").append("svg")
                 .data(jsonData)
                 .enter().append("g")
                 .attr("class", "g")
-                .attr("transform",function(d) {
-                  console.log(d.categories[0]);
-                  return "translate(" + x0(d.categories[0]) + ",0)"; });
+                .attr("transform",function(d) { return "translate(" + x0(d.categories[0]) + ",0)"; });
 
             slice.selectAll("rect")
                     .data(function(d) { return d.values; })
@@ -249,7 +244,6 @@ var svg = d3.select(".graph-left").append("svg")
                 .enter().append("g")
                 .attr("class", "g")
                 .attr("transform",function(d) {
-                  console.log(d);
                   return "translate(" + x0(d.year) + ",0)"; });
 
             slice.selectAll("rect")
