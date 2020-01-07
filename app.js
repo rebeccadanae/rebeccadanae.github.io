@@ -201,7 +201,7 @@ var svg = d3.select(".graph-left").append("svg")
 
           });
 */
-          d3.csv("/assets/data.csv", function(error, data) {
+          d3.csv("/interactive_data_zip.csv", function(error, data) {
             var selected_zip = data.filter(function(d){return d.zip == 20003})[0];
             var jsonData = [
                 {
