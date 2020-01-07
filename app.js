@@ -201,15 +201,51 @@ var svg = d3.select(".graph-left").append("svg")
 
           });
 */
-          d3.json("data.json", function(error, data) {
+          d3.csv("/assets/data.csv", function(error, data) {
+            var selected_zip = data.filter(function(d){return d.zip == 20003})[0];
+            var jsonData = [
+                {
+                    "year": "2009",
+                    "values": [
+                        {
+                            "value": 0.72669566,
+                            "rate": "National"
+                        },
+                        {
+                            "value": 0.77781403,
+                            "rate": "State"
+                        },
+                        {
+                            "value": 1,
+                            "rate": "County"
+                        }
+                    ]
+                },
+                {
+                    "year": "2017",
+                    "values": [
+                        {
+                            "value": 0.61341631,
+                            "rate": "National"
+                        },
+                        {
+                            "value": 0.60051888,
+                            "rate": "State"
+                        },
+                        {
+                            "value": 1,
+                            "rate": "County"
+                        }
+                    ]
+                }
+            ]
 
-
-            var categoriesNames = data.map(function(d) { return d.year; });
-            var rateNames = data[0].values.map(function(d) { return d.rate; });
+            var categoriesNames = jsonData.map(function(d) { return d.year; });
+            var rateNames = jsonData[0].values.map(function(d) { return d.rate; });
 
             x0.domain(categoriesNames);
             x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()], .2);
-            y.domain([0, d3.max(data, function(year) { return d3.max(year.values, function(d) { return 100*(d.value); }); })]);
+            y.domain([0, d3.max(jsonData, function(year) { return d3.max(year.values, function(d) { return 100*(d.value); }); })]);
 
             svg.append("g")
                 .attr("class", "x axis")
@@ -240,7 +276,7 @@ var svg = d3.select(".graph-left").append("svg")
 
 
             var slice = svg.selectAll(".slice")
-                .data(data)
+                .data(jsonData)
                 .enter().append("g")
                 .attr("class", "g")
                 .attr("transform",function(d) {
