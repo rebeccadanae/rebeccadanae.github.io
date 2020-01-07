@@ -52,6 +52,7 @@ var svg = d3.select(".graph-left").append("svg")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
+/*
   d3.csv("/assets/data.csv", function(error, data){
             var selected_zip = data.filter(function(d){return d.zip == 20003})[0];
 
@@ -135,11 +136,19 @@ var svg = d3.select(".graph-left").append("svg")
               }
             ]
 
-            var dates = jsonData.map(function(d) { return d.date; });
+
+            var categoryNames = jsonData.map(function(d) { return d.categories[0].category; });
+            console.log(jsonData);
+            console.log(dates);
+
             var categoryNames = ["US population", "ABAWD on SNAP"]
+
+
             var levelNames = ["National", "State", "County"]
 
+
             x0.domain(categoryNames);
+
             x1.domain(levelNames).rangeRoundBands([0, x0.rangeBand()], .2);
             y.domain([0, d3.max(jsonData[0], function(category) { return d3.max(category.values, function(d) { return 100*(d.value); }); })]);
 
@@ -166,10 +175,12 @@ var svg = d3.select(".graph-left").append("svg")
             svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
 
             var slice = svg.selectAll(".slice")
-                .data(jsonData[0])
+                .data(jsonData)
                 .enter().append("g")
                 .attr("class", "g")
-                .attr("transform",function(d) { return "translate(" + x0(d.category) + ",0)"; });
+                .attr("transform",function(d) {
+                  console.log(d.categories[0]);
+                  return "translate(" + x0(d.categories[0]) + ",0)"; });
 
             slice.selectAll("rect")
                     .data(function(d) { return d.values; })
@@ -192,23 +203,21 @@ var svg = d3.select(".graph-left").append("svg")
                   .duration(1000)
                   .attr("y", function(d) { return 0; })
                   .attr("height", function(d) { return y(100*(d.value)); });
-          });
 
-          /*
+          });
+*/
           d3.json("data.json", function(error, data) {
 
-            var categoriesNames = data.map(function(d) { return d.categorie; });
 
+            var categoriesNames = data.map(function(d) { return d.year; });
             var rateNames = data[0].values.map(function(d) { return d.rate; });
-
 
             x0.domain(categoriesNames);
             x1.domain(rateNames).rangeRoundBands([0, x0.rangeBand()], .2);
-            y.domain([0, d3.max(data, function(categorie) { return d3.max(categorie.values, function(d) { return 100*(d.value); }); })]);
+            y.domain([0, d3.max(data, function(year) { return d3.max(year.values, function(d) { return 100*(d.value); }); })]);
 
             svg.append("g")
                 .attr("class", "x axis")
-
                 .call(xAxis);
 
             svg.append("g")
@@ -227,18 +236,21 @@ var svg = d3.select(".graph-left").append("svg")
 
             svg.append("text")
                 .attr("y", 285)
-                .attr("x", 80)
+                .attr("x", 50)
                 .style('font-weight', 'bold')
                 .style('font-size', 18)
-                .text("June 2009")
+                .text("U.S. Population")
 
             svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
+
 
             var slice = svg.selectAll(".slice")
                 .data(data)
                 .enter().append("g")
                 .attr("class", "g")
-                .attr("transform",function(d) { return "translate(" + x0(d.categorie) + ",0)"; });
+                .attr("transform",function(d) {
+                  console.log(d);
+                  return "translate(" + x0(d.year) + ",0)"; });
 
             slice.selectAll("rect")
                 .data(function(d) { return d.values; })
@@ -261,8 +273,9 @@ var svg = d3.select(".graph-left").append("svg")
                 .duration(1000)
                 .attr("y", function(d) { return 0; })
                 .attr("height", function(d) { return y(100*(d.value)); });
+
 });
-*/
+
   }
 
 

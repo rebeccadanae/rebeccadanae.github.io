@@ -1,6 +1,6 @@
 [
     {
-        "categorie": "US population",
+        "year": "2009",
         "values": [
             {
                 "value": 0.72669566,
@@ -17,7 +17,7 @@
         ]
     },
     {
-        "categorie": "ABAWD on SNAP",
+        "year": "2017",
         "values": [
             {
                 "value": 0.61341631,
