@@ -50,173 +50,22 @@ var svg = d3.select(".graph-left").append("svg")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-/*
-  d3.csv("/assets/data.csv", function(error, data){
-            var selected_zip = data.filter(function(d){return d.zip == 20003})[0];
-
-            var jsonData = [
-              {
-                "date": "June 2009",
-                "categories" : [
-                  {
-                    "category" : "US population",
-                    "values" : [
-                      {
-                          "value": Number(selected_zip.lost_elig_nat_pop2009),
-                          "level": "National"
-                      },
-                      {
-                          "value": Number(selected_zip.lost_elig_state_pop2009),
-                          "level": "State"
-                      },
-                      {
-                          "value": Number(selected_zip.lost_elig_county_pop2009),
-                          "level": "County"
-                      }
-                    ]
-                  },
-                  {
-                    "category": "ABAWD on SNAP",
-                    "values" : [
-                      {
-                          "value": Number(selected_zip.lost_elig_nat_abawd2009),
-                          "level": "National"
-                      },
-                      {
-                          "value": Number(selected_zip.lost_elig_state_abawd2009),
-                          "level": "State"
-                      },
-                      {
-                          "value": Number(selected_zip.lost_elig_county_abawd2009),
-                          "level": "County"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "date":"December 2017",
-                "categories" : [
-                {
-                  "category" : "US population",
-                  "values" : [
-                    {
-                        "value": Number(selected_zip.lost_elig_nat_pop2017),
-                        "level": "National"
-                    },
-                    {
-                        "value": Number(selected_zip.lost_elig_state_pop2017),
-                        "level": "State"
-                    },
-                    {
-                        "value": Number(selected_zip.lost_elig_county_pop2017),
-                        "level": "County"
-                    }
-                  ]
-                },
-                {
-                  "category": "ABAWD on SNAP",
-                  "values" : [
-                    {
-                        "value": Number(selected_zip.lost_elig_nat_abawd2017),
-                        "level": "National"
-                    },
-                    {
-                        "value": Number(selected_zip.lost_elig_state_abawd2017),
-                        "level": "State"
-                    },
-                    {
-                        "value": Number(selected_zip.lost_elig_county_abawd2017),
-                        "level": "County"
-                    }
-                  ]
-                }]
-              }
-            ]
-
-
-            var categoryNames = jsonData.map(function(d) { return d.categories[0].category; });
-
-
-            var categoryNames = ["US population", "ABAWD on SNAP"]
-
-
-            var levelNames = ["National", "State", "County"]
-
-
-            x0.domain(categoryNames);
-
-            x1.domain(levelNames).rangeRoundBands([0, x0.rangeBand()], .2);
-            y.domain([0, d3.max(jsonData[0], function(category) { return d3.max(category.values, function(d) { return 100*(d.value); }); })]);
-
-            svg.append("g")
-                .attr("class", "x axis")
-                .call(xAxis);
-
-            svg.append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", -50)
-                .attr("x", -10)
-                .attr("dy", ".71em")
-                .style("text-anchor", "end")
-                .style('font-weight','bold')
-                .text("Percent decrease in eligibility");
-
-            svg.append("text")
-                .attr("y", 285)
-                .attr("x", 80)
-                .style('font-weight', 'bold')
-                .style('font-size', 18)
-                .text("June 2009")
-
-            svg.select('.y').transition().duration(500).delay(1300).style('opacity','1');
-
-            var slice = svg.selectAll(".slice")
-                .data(jsonData)
-                .enter().append("g")
-                .attr("class", "g")
-                .attr("transform",function(d) { return "translate(" + x0(d.categories[0]) + ",0)"; });
-
-            slice.selectAll("rect")
-                    .data(function(d) { return d.values; })
-                    .enter()
-                    .append("rect")
-                    .attr("width", x1.rangeBand())
-                    .attr("x", function(d) { return x1(d.level); })
-                    .style("fill", function(d) { return color(d.level) })
-                    .attr("y", function(d) { return 0; })
-                    .attr("height", function(d) { return y(0); })
-                    .on("mouseover", function(d) {
-                        d3.select(this).style("fill", d3.rgb(color(d.level)).darker(2));
-                    })
-                    .on("mouseout", function(d) {
-                        d3.select(this).style("fill", color(d.level));
-                    });
-            slice.selectAll("rect")
-                  .transition()
-                  .delay(function (d) {return Math.random()*1000;})
-                  .duration(1000)
-                  .attr("y", function(d) { return 0; })
-                  .attr("height", function(d) { return y(100*(d.value)); });
-
-          });
-*/
           d3.csv("/interactive_data_zip.csv", function(error, data) {
-            var selected_zip = data.filter(function(d){return d.zip == 20003})[0];
+            var selected_zip = data.filter(function(d){return d.zip == 90210})[0];
             var jsonData = [
                 {
                     "year": "2009",
                     "values": [
                         {
-                            "value": 0.72669566,
+                            "value": selected_zip.lost_elig_nat_pop2009,
                             "rate": "National"
                         },
                         {
-                            "value": 0.77781403,
+                            "value": selected_zip.lost_elig_state_pop2009,
                             "rate": "State"
                         },
                         {
-                            "value": 1,
+                            "value": selected_zip.lost_elig_county_pop2009,
                             "rate": "County"
                         }
                     ]
@@ -225,15 +74,15 @@ var svg = d3.select(".graph-left").append("svg")
                     "year": "2017",
                     "values": [
                         {
-                            "value": 0.61341631,
+                            "value": selected_zip.lost_elig_nat_pop2017,
                             "rate": "National"
                         },
                         {
-                            "value": 0.60051888,
+                            "value": selected_zip.lost_elig_state_pop2017,
                             "rate": "State"
                         },
                         {
-                            "value": 1,
+                            "value": selected_zip.lost_elig_county_pop2017,
                             "rate": "County"
                         }
                     ]
