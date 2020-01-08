@@ -56,10 +56,26 @@ var svg2 = d3.select(".graph-right").append("svg")
     .append("g")
       .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-
+var legend =d3.select(".legend-svg")
 
           d3.csv("/interactive_data_zip.csv", function(error, data) {
-            var selected_zip = data.filter(function(d){return d.zip == 35123})[0];
+            var selected_zip = data.filter(function(d){return d.zip == 20003})[0];
+            var state_name = selected_zip.stname;
+            var county_name = selected_zip.ctyname;
+
+            legend.append("text")
+                .attr("y", 30)
+                .attr("x", 130)
+                .style('font-weight','bold')
+                .text(state_name);
+
+                legend.append("text")
+                    .attr("y", 30)
+                    .attr("x", 230)
+                    .style('font-weight','bold')
+                    .text(county_name);
+
+            console.log(county_name);
             var jsonData1 = [
                 {
                     "year": "2009",
