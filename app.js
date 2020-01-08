@@ -19,55 +19,11 @@
     var zip_code = document.getElementById("zip_search").value = 20815
     document.getElementById("go").onclick = function(){
       zip_code = document.getElementById("zip_search").value
-      console.log(document.getElementById("zip_search").value);
       var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zip_code);
-      console.log(isValidZip);
-    };
+      if(isValidZip){
+        d3.selectAll("#state_name, #county_name").remove();
+        d3.csv("/interactive_data_zip.csv", function(error, data) {
 
-    var margin = {top: 60, right: 60, bottom: 100, left: 100},
-    width = 400 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
-
-var x0 = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
-
-var x1 = d3.scale.ordinal();
-
-var y = d3.scale.linear()
-    .range([0, height]);
-
-var xAxis = d3.svg.axis()
-    .scale(x0)
-    .tickSize(0)
-    .orient("top");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .innerTickSize(-width)
-    .outerTickSize(0)
-    .tickPadding(10);
-
-var color = d3.scale.ordinal()
-    .range(["#053769","#65a4e5","#ff5e1a"]);
-
-
-var svg1 = d3.select(".graph-left").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
-
-var svg2 = d3.select(".graph-right").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform","translate(" + margin.left + "," + margin.top + ")");
-
-var legend =d3.select(".legend-svg")
-
-          d3.csv("/interactive_data_zip.csv", function(error, data) {
             var selected_zip = data.filter(function(d){return d.zip == zip_code})[0];
             var state_name = selected_zip.stname;
             var county_name = selected_zip.ctyname;
@@ -76,15 +32,16 @@ var legend =d3.select(".legend-svg")
                 .attr("y", 30)
                 .attr("x", 130)
                 .style('font-weight','bold')
+                .attr("id","state_name")
                 .text(state_name);
 
                 legend.append("text")
                     .attr("y", 30)
                     .attr("x", 230)
                     .style('font-weight','bold')
+                    .attr("id","county_name")
                     .text(county_name);
 
-            console.log(county_name);
             var jsonData1 = [
                 {
                     "year": "2009",
@@ -284,7 +241,66 @@ var legend =d3.select(".legend-svg")
                 .attr("y", function(d) { return 0; })
                 .attr("height", function(d) { return y(100*(d.value)); });
 
-});
+          });
+      }else{
+        console.log("invalid zip code")
+      }
+    };
+
+
+    var margin = {top: 60, right: 60, bottom: 100, left: 100},
+    width = 400 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+var x0 = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var x1 = d3.scale.ordinal();
+
+var y = d3.scale.linear()
+    .range([0, height]);
+
+var xAxis = d3.svg.axis()
+    .scale(x0)
+    .tickSize(0)
+    .orient("top");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .innerTickSize(-width)
+    .outerTickSize(0)
+    .tickPadding(10);
+
+var color = d3.scale.ordinal()
+    .range(["#053769","#65a4e5","#ff5e1a"]);
+
+
+var svg1 = d3.select(".graph-left").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+var svg2 = d3.select(".graph-right").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+var legend =d3.select(".legend-svg")
+
+
+var all_data =   ("/interactive_data_zip.csv", function(error, data) {
+  return data;
+})
+
+
+
+
+
+
 
   }
 
