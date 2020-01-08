@@ -14,7 +14,16 @@
   function buildGraphs() {
 
   }
+
   function app() {
+    var zip_code = document.getElementById("zip_search").value = 20815
+    document.getElementById("go").onclick = function(){
+      zip_code = document.getElementById("zip_search").value
+      console.log(document.getElementById("zip_search").value);
+      var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zip_code);
+      console.log(isValidZip);
+    };
+
     var margin = {top: 60, right: 60, bottom: 100, left: 100},
     width = 400 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
@@ -59,7 +68,7 @@ var svg2 = d3.select(".graph-right").append("svg")
 var legend =d3.select(".legend-svg")
 
           d3.csv("/interactive_data_zip.csv", function(error, data) {
-            var selected_zip = data.filter(function(d){return d.zip == 20003})[0];
+            var selected_zip = data.filter(function(d){return d.zip == zip_code})[0];
             var state_name = selected_zip.stname;
             var county_name = selected_zip.ctyname;
 
