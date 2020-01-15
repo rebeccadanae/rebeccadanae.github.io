@@ -22,7 +22,7 @@
       var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zip_code);
       if(isValidZip){
         d3.selectAll("#state_name, #county_name").remove();
-        d3.csv("/interactive_data_zip.csv", function(error, data) {
+        d3.csv("/interactive_data_zip.csv").then(function (data) {
 
             var selected_zip = data.filter(function(d){return d.zip == zip_code})[0];
             var state_name = selected_zip.stname;
@@ -116,36 +116,39 @@
                 }
             ]
 
-            var categoriesNames1 = jsonData1.map(function(d) { return d.year; });
-            var rateNames1 = jsonData1[0].values.map(function(d) { return d.rate; });
-            var categoriesNames2 = jsonData2.map(function(d) { return d.year; });
-            var rateNames2 = jsonData2[0].values.map(function(d) { return d.rate; });
-
-            x0.domain(categoriesNames1);
-            x1.domain(rateNames1).rangeRoundBands([0, x0.rangeBand()], .2);
+            x0.domain(jsonData1.map(function(d) {
+               return d.year;
+              }));
+            x1.domain(jsonData1[0].values.map(function(d) {
+               return d.rate;
+             }));
             y.domain([0, d3.max(jsonData1, function(year) { return d3.max(year.values, function(d) { return 100*(d.value); }); })]);
 
-            x0.domain(categoriesNames2);
-            x1.domain(rateNames2).rangeRoundBands([0, x0.rangeBand()], .2);
+            x0.domain(jsonData2.map(function(d) {
+              return d.year;
+            }));
+            x1.domain(jsonData2[0].values.map(function(d) {
+              return d.rate;
+            }))
             y.domain([0, d3.max(jsonData2, function(year) { return d3.max(year.values, function(d) { return 100*(d.value); }); })]);
 
             svg1.append("g")
                 .attr("class", "x axis")
-                .call(xAxis);
+                .call(d3.axisTop(x0));
 
             svg2.append("g")
                     .attr("class", "x axis")
-                    .call(xAxis);
+                    .call(d3.axisTop(x0));
 
             svg1.append("g")
                 .attr("class", "y axis")
                 .style('opacity','0')
-                .call(yAxis)
+                .call(d3.axisLeft(y))
 
             svg2.append("g")
                 .attr("class", "y axis")
                 .style('opacity','0')
-                .call(yAxis)
+                .call(d3.axisLeft(y))
 
             svg1.append("text")
                 .attr("transform", "rotate(-90)")
@@ -183,12 +186,12 @@
             svg2.select('.y').transition().duration(500).delay(1300).style('opacity','1');
 
 
-            var slice1 = svg1.selectAll(".slice1")
-                .data(jsonData1)
-                .enter().append("g")
-                .attr("class", "g")
-                .attr("transform",function(d) {
-                  return "translate(" + x0(d.year) + ",0)"; });
+            var slice1 = svg1.selectAll(".bar")
+            .data(jsonData1)
+            .enter().append("g")
+            .attr("class", "g")
+            .attr("transform",function(d) {
+            return "translate(" + x0(d.year) + ",0)"; });
 
           var slice2 = svg2.selectAll(".slice2")
               .data(jsonData2)
@@ -200,7 +203,7 @@
             slice1.selectAll("rect")
                 .data(function(d) { return d.values; })
             .enter().append("rect")
-                .attr("width", x1.rangeBand())
+                .attr("width", x1.bandwidth())
                 .attr("x", function(d) { return x1(d.rate); })
                 .style("fill", function(d) { return color(d.rate) })
                 .attr("y", function(d) { return 0; })
@@ -215,7 +218,7 @@
                 slice2.selectAll("rect")
                     .data(function(d) { return d.values; })
                 .enter().append("rect")
-                    .attr("width", x1.rangeBand())
+                    .attr("width", x1.bandwidth())
                     .attr("x", function(d) { return x1(d.rate); })
                     .style("fill", function(d) { return color(d.rate) })
                     .attr("y", function(d) { return 0; })
@@ -252,27 +255,17 @@
     width = 400 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-var x0 = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
+var x0 = d3.scaleBand()
+    .rangeRound([0, width], .2)
+    .padding(0.1);
 
-var x1 = d3.scale.ordinal();
+var x1 = d3.scaleBand()
+    .rangeRound([0, width], 1);
 
-var y = d3.scale.linear()
+var y = d3.scaleLinear()
     .range([0, height]);
 
-var xAxis = d3.svg.axis()
-    .scale(x0)
-    .tickSize(0)
-    .orient("top");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .innerTickSize(-width)
-    .outerTickSize(0)
-    .tickPadding(10);
-
-var color = d3.scale.ordinal()
+var color = d3.scaleBand()
     .range(["#053769","#65a4e5","#ff5e1a"]);
 
 
