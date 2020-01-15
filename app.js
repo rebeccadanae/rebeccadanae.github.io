@@ -16,7 +16,101 @@
   }
 
   function app() {
-    var zip_code = document.getElementById("zip_search").value = 20815
+    var all_data = d3.csv("/interactive_data_zip.csv").then(function (data) {
+      return data;
+    });
+
+    var natData = [
+                  {
+                      "year": "2009",
+                      "values": [
+                          {
+                              "value": 0.72669566,
+                              "rate": "National"
+                          },
+                          {
+                              "value": 0,
+                              "rate": "State"
+                          },
+                          {
+                              "value": 0,
+                              "rate": "County"
+                          }
+                      ]
+                  },
+                  {
+                      "year": "2017",
+                      "values": [
+                          {
+                              "value": 0.22734551,
+                              "rate": "National"
+                          },
+                          {
+                              "value": 0,
+                              "rate": "State"
+                          },
+                          {
+                              "value": 0,
+                              "rate": "County"
+                          }
+                      ]
+                  }
+              ]
+
+
+
+//Initial graph setup
+    var legend =d3.select(".legend-svg")
+
+    legend.append("text")
+          .attr("y", 30)
+          .attr("x", 130)
+          .style('font-weight','bold')
+          .attr("id","state_name")
+          .text("State");
+
+    legend.append("text")
+          .attr("y", 30)
+          .attr("x", 230)
+          .style('font-weight','bold')
+          .attr("id","county_name")
+          .text("County");
+
+    var margin = {top: 60, right: 60, bottom: 100, left: 100},
+        width = 400 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+    var x0 = d3.scaleBand()
+                .rangeRound([0, width], .2)
+                .padding(0.1);
+
+    var y = d3.scaleLinear()
+              .range([0, height]);
+
+    x0.domain(natData.map(function(d) {
+                   return d.year;
+                  }));
+
+    for(var i = 1; i < 3; ++i){
+      var svg = [];
+      var graph = [];
+      graph[i] = ".graph".concat(i);
+      svg[i] = d3.select(graph[i])
+                  .append("svg")
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+        svg[i].append("g")
+              .attr("class", "x axis")
+              .call(d3.axisTop(x0));
+        svg[i].append("g")
+              .attr("class", "y axis")
+              .call(d3.axisLeft(y))
+
+    }
+  }
+
+    /*
     document.getElementById("go").onclick = function(){
       zip_code = document.getElementById("zip_search").value
       var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zip_code);
@@ -251,9 +345,7 @@
     };
 
 
-    var margin = {top: 60, right: 60, bottom: 100, left: 100},
-    width = 400 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+
 
 var x0 = d3.scaleBand()
     .rangeRound([0, width], .2)
@@ -269,20 +361,13 @@ var color = d3.scaleBand()
     .range(["#053769","#65a4e5","#ff5e1a"]);
 
 
-var svg1 = d3.select(".graph-left").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
-
 var svg2 = d3.select(".graph-right").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-var legend =d3.select(".legend-svg")
+
 
 
 var all_data =   ("/interactive_data_zip.csv", function(error, data) {
@@ -296,7 +381,7 @@ var all_data =   ("/interactive_data_zip.csv", function(error, data) {
 
 
   }
-
+*/
 
   document.addEventListener(
     "readystatechange",
