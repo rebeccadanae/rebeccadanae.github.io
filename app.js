@@ -29,7 +29,7 @@
                               "rate": "National"
                           },
                           {
-                              "value": 0,
+                              "value": 0.5,
                               "rate": "State"
                           },
                           {
@@ -80,12 +80,18 @@
         width = 400 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
-    var x0 = d3.scaleBand()
-                .rangeRound([0, width], .2)
-                .padding(0.1);
+        // The scale spacing the groups:
+        var x0 = d3.scaleBand()
+            .rangeRound([0, width])
+            .paddingInner(0.1);
 
+        // The scale for spacing each group's bar:
+        var x1 = d3.scaleBand()
+            .padding(0.05);
     var y = d3.scaleLinear()
               .range([0, height]);
+    var color = d3.scaleOrdinal()
+                  .range(["#053769","#65a4e5","#ff5e1a"]);
 
     x0.domain(natData.map(function(d) {
                    return d.year;
@@ -94,6 +100,8 @@
     for(var i = 1; i < 3; ++i){
       var svg = [];
       var graph = [];
+      var ylabels = ["population", "household"]
+      var graphlabels = ["U.S. Population", "SNAP Households"]
       graph[i] = ".graph".concat(i);
       svg[i] = d3.select(graph[i])
                   .append("svg")
@@ -105,8 +113,41 @@
               .call(d3.axisTop(x0));
         svg[i].append("g")
               .attr("class", "y axis")
-              .call(d3.axisLeft(y))
-
+              .call(d3.axisLeft(y));
+        svg[i].append("text")
+                  .attr("transform", "rotate(-90)")
+                  .attr("y", -50)
+                  .attr("x", 20)
+                  .attr("dy", ".71em")
+                  .style("text-anchor", "end")
+                  .style('font-weight','bold')
+                  .text("Percent decrease in eligibility (".concat(ylabels[i-1], ")"));
+        svg[i].append("text")
+                      .attr("y", 285)
+                      .attr("x", 40)
+                      .style('font-weight', 'bold')
+                      .style('font-size', 18)
+                      .text(graphlabels[i-1])
+        svg[i].selectAll(".bar")
+                      .data(natData)
+                      .enter().append("g")
+                      .attr("class", "g")
+                      .attr("transform",function(d) {
+                      return "translate(" + x0(d.year) + ",0)"; })
+                      .selectAll("rect")
+                          .data(function(d) { return d.values; })
+                      .enter().append("rect")
+                          .attr("width", x0.bandwidth())
+                          .attr("x", function(d) { return x1(d.rate); })
+                          .style("fill", function(d) { return color(d.rate) })
+                          .attr("y", function(d) { return 0; })
+                          .attr("height", function(d) { return y(d.value); })
+                          .on("mouseover", function(d) {
+                              d3.select(this).style("fill", d3.rgb(color(d.rate)).darker(2));
+                          })
+                          .on("mouseout", function(d) {
+                              d3.select(this).style("fill", color(d.rate));
+                          });
     }
   }
 
@@ -244,14 +285,7 @@
                 .style('opacity','0')
                 .call(d3.axisLeft(y))
 
-            svg1.append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", -50)
-                .attr("x", 20)
-                .attr("dy", ".71em")
-                .style("text-anchor", "end")
-                .style('font-weight','bold')
-                .text("Percent decrease in eligibility (population)");
+
 
             svg2.append("text")
                 .attr("transform", "rotate(-90)")
