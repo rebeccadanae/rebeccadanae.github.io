@@ -131,7 +131,27 @@
             });
 
     }
+
+    //clear function
+
+    document.getElementById("zip_search")
+    .addEventListener("search", function() {
+        if (document.getElementById("zip_search").value === ""){
+          reset();
+        }
+    });
+
+    function reset(){
+      console.log("reset");
+      d3.selectAll("rect")
+      .transition()
+      .delay(function (d) {return Math.random()*1000;})
+      .duration(1000)
+      .attr("height", y(0))
+
+    }
   }
+
 
     /*
     document.getElementById("go").onclick = function(){
