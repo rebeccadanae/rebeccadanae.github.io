@@ -16,9 +16,6 @@
   }
 
   function app() {
-    var all_data = d3.csv("/interactive_data_zip.csv").then(function (data) {
-      return data;
-    });
 
     var zipData = [
                  { year: "2009", values:
@@ -165,10 +162,6 @@
         document.getElementById("go").click();
       }
     });
-    var zip_data =d3.csv("interactive_data_zip.csv").then(function(data)
-    {
-      return data;
-    });
 
     function new_zip(){
       var zip_code = document.getElementById("zip_search").value
@@ -176,12 +169,78 @@
       if(isValidZip){
           console.log(zip_code);
           d3.selectAll("#state_name, #county_name").remove();
-          Promise.zip_data.then(function(values){
+          d3.csv("/interactive_data_zip.csv").then(function (data){
 
             var selected_zip = data.filter(function(d){return d.zip == zip_code})[0];
             var state_name = selected_zip.stname;
             var county_name = selected_zip.ctyname;
-            console.log(state_name);
+
+            legend.append("text")
+                .attr("y", 30)
+                .attr("x", 130)
+                .style('font-weight','bold')
+                .attr("id","state_name")
+                .text(state_name);
+
+                legend.append("text")
+                    .attr("y", 30)
+                    .attr("x", 230)
+                    .style('font-weight','bold')
+                    .attr("id","county_name")
+                    .text(county_name);
+
+            zipData = [
+                         { year: "2009", values:
+                                                      [
+                                                        {geo_level:'National', grpValue: Number(selected_zip.lost_elig_nat_pop2009)},
+                                                        {geo_level:'State', grpValue: Number(selected_zip.lost_elig_state_pop2009)},
+                                                        {geo_level:'County', grpValue: Number(selected_zip.lost_elig_county_pop2009)}
+                                                      ]
+                         },
+                         { year: "2017", values:
+                                                      [
+                                                        {geo_level:'National', grpValue: Number(selected_zip.lost_elig_nat_pop2017)},
+                                                        {geo_level:'State', grpValue: Number(selected_zip.lost_elig_state_pop2017)},
+                                                        {geo_level:'County', grpValue: Number(selected_zip.lost_elig_county_pop2017)}
+                                                      ]
+                         }
+                          ];
+
+
+
+
+                    console.log(zipData[0].values[0].grpValue);
+                    slice = d3.select(".graph1")
+                    .selectAll("svg")
+                    .select("g")
+                    .selectAll(".slice")
+                  .data(zipData)
+                  .enter().append("g")
+                  .attr("class", "g")
+                  .attr("transform",function(d) { return "translate(" + x0(d.year) + ",0)"; });
+
+                  slice.selectAll("rect")
+                  .data(function(d) { return d.values; })
+                    .enter().append("rect")
+                        .attr("width", x1.bandwidth())
+                        .attr("x", function(d) { return x1(d.geo_level); })
+                         .style("fill", function(d) { return color(d.geo_level) })
+                         .attr("y", 0)
+                         .attr("height", function(d) { return y(0); })
+                        .on("mouseover", function(d) {
+                            d3.select(this).style("fill", d3.rgb(color(d.geo_level)).darker(2));
+                        })
+                        .on("mouseout", function(d) {
+                            d3.select(this).style("fill", color(d.geo_level));
+                        });
+
+
+                        slice.selectAll("rect")
+                            .transition()
+                            .delay(function (d) {return Math.random()*1000;})
+                            .duration(1000)
+                            .attr("y", function(d) { return 0; })
+                        .attr("height", function(d) { return y(d.grpValue ); })
           })
       }else{
         console.log("invalid zip code");
