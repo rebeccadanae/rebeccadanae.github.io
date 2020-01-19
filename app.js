@@ -179,6 +179,19 @@
         .on("mouseout", function(d) {
           d3.select(this).style("fill", color(d.geo_level));
         });
+
+        // data labels
+      slice.selectAll(".text")
+      .data(function(d) {
+        return d.values;
+      })
+        .enter()
+        .append("text")
+        .attr("class","label")
+        .attr("x", (function(d) { return x1(d.geo_level); }  ))
+        .attr("y", function(d) { return y(d.grpValue - .05); })
+        .attr("dy", ".75em")
+        .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
     }
     var input = document.getElementById("zip_search");
     //clear function
