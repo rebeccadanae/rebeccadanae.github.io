@@ -203,7 +203,7 @@
     });
 
     function reset() {
-      d3.select("#error_message").remove();
+      d3.selectAll("#error_message, .label").remove();
       d3.selectAll("rect")
         .transition()
         .delay(function(d) {
