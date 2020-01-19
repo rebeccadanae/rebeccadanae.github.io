@@ -50,7 +50,9 @@
   .y.axis path {
     display: none;
   }
-
+.label{
+  font-size: 11px;
+}
 /* Mobile Styles */
 @media only screen and (max-width: 400px) {
 .logo-container{
