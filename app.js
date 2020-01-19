@@ -131,18 +131,17 @@
             });
 
     }
-
+    var input = document.getElementById("zip_search");
     //clear function
 
-    document.getElementById("zip_search")
-    .addEventListener("search", function() {
+    input.addEventListener("search", function() {
         if (document.getElementById("zip_search").value === ""){
           reset();
         }
     });
 
     function reset(){
-      console.log("reset");
+      d3.select("#error_message").remove();
       d3.selectAll("rect")
       .transition()
       .delay(function (d) {return Math.random()*1000;})
@@ -150,7 +149,56 @@
       .attr("height", y(0))
 
     }
+
+    //trigger when go button is clicked
+
+      document.getElementById("go").onclick = function(){
+          reset();
+          new_zip();
+      }
+
+    // click go button when enter key is selected
+    input.addEventListener("keyup", function(event) {
+      // Number 13 is the "Enter" key on the keyboard
+      if (event.keyCode === 13) {
+        // Trigger the button element with a click
+        document.getElementById("go").click();
+      }
+    });
+    var zip_data =d3.csv("interactive_data_zip.csv").then(function(data)
+    {
+      return data;
+    });
+
+    function new_zip(){
+      var zip_code = document.getElementById("zip_search").value
+      var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zip_code);
+      if(isValidZip){
+          console.log(zip_code);
+          d3.selectAll("#state_name, #county_name").remove();
+          Promise.zip_data.then(function(values){
+
+            var selected_zip = data.filter(function(d){return d.zip == zip_code})[0];
+            var state_name = selected_zip.stname;
+            var county_name = selected_zip.ctyname;
+            console.log(state_name);
+          })
+      }else{
+        console.log("invalid zip code");
+        d3.select("#error_message").remove();
+
+        d3.select(".error-box")
+            .append("text")
+            .attr("y", 0)
+            .attr("x", 500)
+            .attr("id","error_message")
+            .style('font-weight','bold')
+            .text("Not a valid zip code.");
+      }
+
+    }
   }
+
 
 
     /*
