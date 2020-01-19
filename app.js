@@ -386,6 +386,19 @@
               return y(d.grpValue);
             });
 
+            // data labels
+          slice.selectAll(".text")
+          .data(function(d) {
+            return d.values;
+          })
+            .enter()
+            .append("text")
+            .attr("class","label")
+            .attr("x", (function(d) { return x1(d.geo_level); }  ))
+            .attr("y", function(d) { return y(d.grpValue - .05); })
+            .attr("dy", ".75em")
+            .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
+
           var slice2 = d3
             .select(".graph2")
             .selectAll("svg")
@@ -440,6 +453,19 @@
             .attr("height", function(d) {
               return y(d.grpValue);
             });
+
+            // data labels
+          slice2.selectAll(".text")
+          .data(function(d) {
+            return d.values;
+          })
+            .enter()
+            .append("text")
+            .attr("class","label")
+            .attr("x", (function(d) { return x1(d.geo_level); }  ))
+            .attr("y", function(d) { return y(d.grpValue - .05); })
+            .attr("dy", ".75em")
+            .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
         });
       } else {
         console.log("invalid zip code");
