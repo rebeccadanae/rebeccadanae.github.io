@@ -111,7 +111,6 @@
 
       var svg = [];
       var graph = [];
-      var slice =[];
       var ylabels = ["population", "household"];
       var graphlabels = ["U.S. Population", "SNAP Households"];
       graph[i] = ".graph".concat(i);
@@ -146,8 +145,8 @@
         .style("font-weight", "bold")
         .style("font-size", 18)
         .text(graphlabels[i - 1]);
-      slice[i] = svg[i]
-        .selectAll(slice[i])
+      var slice = svg[i]
+        .selectAll(".slice")
         .data(zipData[i])
         .enter()
         .append("g")
@@ -156,7 +155,7 @@
           return "translate(" + x0(d.year) + ",0)";
         });
 
-      slice[i]
+      slice
         .selectAll("rect")
         .data(function(d) {
           return d.values;
@@ -180,19 +179,6 @@
         .on("mouseout", function(d) {
           d3.select(this).style("fill", color(d.geo_level));
         });
-
-        // data labels
-    	slice[i].selectAll(".text")
-      .data(function(d) {
-        return d.values;
-      })
-    	  .enter()
-    	  .append("text")
-    	  .attr("class","label")
-    	  .attr("x", (function(d) { return x1(d.geo_level); }  ))
-    	  .attr("y", function(d) { return y(d.grpValue - .05); })
-    	  .attr("dy", ".75em")
-    	  .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
     }
     var input = document.getElementById("zip_search");
     //clear function
@@ -332,13 +318,12 @@
             }
           ];
 
-          for (var i = 1; i < 3; ++i) {
-          slice[i] = d3
-            .select(graph[i])
+          slice = d3
+            .select(".graph1")
             .selectAll("svg")
             .select("g")
             .selectAll(".slice")
-            .data(zipData[i])
+            .data(zipData[1])
             .enter()
             .append("g")
             .attr("class", "g")
@@ -346,7 +331,7 @@
               return "translate(" + x0(d.year) + ",0)";
             });
 
-          slice[i]
+          slice
             .selectAll("rect")
             .data(function(d) {
               return d.values;
@@ -374,7 +359,7 @@
               d3.select(this).style("fill", color(d.geo_level));
             });
 
-          slice[i]
+          slice
             .selectAll("rect")
             .transition()
             .delay(function(d) {
@@ -387,19 +372,61 @@
             .attr("height", function(d) {
               return y(d.grpValue);
             });
-            // data labels
-        	slice[i].selectAll(".text")
-          .data(function(d) {
-            return d.values;
-          })
-        	  .enter()
-        	  .append("text")
-        	  .attr("class","label")
-        	  .attr("x", (function(d) { return x1(d.geo_level); }  ))
-        	  .attr("y", function(d) { return y(d.grpValue - .05); })
-        	  .attr("dy", ".75em")
-        	  .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
-          }
+
+          var slice2 = d3
+            .select(".graph2")
+            .selectAll("svg")
+            .select("g")
+            .selectAll(".slice2")
+            .data(zipData[2])
+            .enter()
+            .append("g")
+            .attr("class", "g")
+            .attr("transform", function(d) {
+              return "translate(" + x0(d.year) + ",0)";
+            });
+
+          slice2
+            .selectAll("rect")
+            .data(function(d) {
+              return d.values;
+            })
+            .enter()
+            .append("rect")
+            .attr("width", x1.bandwidth())
+            .attr("x", function(d) {
+              return x1(d.geo_level);
+            })
+            .style("fill", function(d) {
+              return color(d.geo_level);
+            })
+            .attr("y", 0)
+            .attr("height", function(d) {
+              return y(0);
+            })
+            .on("mouseover", function(d) {
+              d3.select(this).style(
+                "fill",
+                d3.rgb(color(d.geo_level)).darker(2)
+              );
+            })
+            .on("mouseout", function(d) {
+              d3.select(this).style("fill", color(d.geo_level));
+            });
+
+          slice2
+            .selectAll("rect")
+            .transition()
+            .delay(function(d) {
+              return Math.random() * 1000;
+            })
+            .duration(1000)
+            .attr("y", function(d) {
+              return 0;
+            })
+            .attr("height", function(d) {
+              return y(d.grpValue);
+            });
         });
       } else {
         console.log("invalid zip code");
