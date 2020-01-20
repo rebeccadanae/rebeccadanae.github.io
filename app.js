@@ -233,266 +233,268 @@
 
     function new_zip() {
       var zip_code = document.getElementById("zip_search").value;
-      var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zip_code);
-      if (isValidZip) {
+      //var isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zip_code);
+      //if (isValidZip) {
         d3.selectAll("#state_name, #county_name").remove();
         d3.csv("/interactive_data_zip.csv").then(function(data) {
+
           var selected_zip = data.filter(function(d) {
             return d.zip == zip_code;
           })[0];
-          var state_name = selected_zip.stname;
-          var county_name = selected_zip.ctyname;
+          if(typeof selected_zip == 'undefined'){
+            d3.select("#error_message").remove();
 
-          legend_state
-            .append("text")
-            .attr("y", 30)
-            .attr("x", 130)
-            .style("font-weight", "bold")
-            .attr("id", "state_name")
-            .text(state_name);
+            d3.select(".error-box")
+              .append("text")
+              .attr("y", 0)
+              .attr("x", 500)
+              .attr("id", "error_message")
+              .style("font-weight", "bold")
+              .text("Not a valid zip code.");
+          }else{
+            var state_name = selected_zip.stname;
+            var county_name = selected_zip.ctyname;
 
-          legend_county
-            .append("text")
-            .attr("y", 30)
-            .attr("x", 130)
-            .style("font-weight", "bold")
-            .attr("id", "county_name")
-            .text(county_name);
+            legend_state
+              .append("text")
+              .attr("y", 20)
+              .attr("x", 130)
+              .style("font-weight", "bold")
+              .attr("id", "state_name")
+              .text(state_name);
 
-          zipData[1] = [
-            {
-              year: "2009",
-              values: [
-                {
-                  geo_level: "National",
-                  grpValue: Number(selected_zip.lost_elig_nat_pop2009)
-                },
-                {
-                  geo_level: "State",
-                  grpValue: Number(selected_zip.lost_elig_state_pop2009)
-                },
-                {
-                  geo_level: "County",
-                  grpValue: Number(selected_zip.lost_elig_county_pop2009)
-                }
-              ]
-            },
-            {
-              year: "2017",
-              values: [
-                {
-                  geo_level: "National",
-                  grpValue: Number(selected_zip.lost_elig_nat_pop2017)
-                },
-                {
-                  geo_level: "State",
-                  grpValue: Number(selected_zip.lost_elig_state_pop2017)
-                },
-                {
-                  geo_level: "County",
-                  grpValue: Number(selected_zip.lost_elig_county_pop2017)
-                }
-              ]
-            }
-          ];
+            legend_county
+              .append("text")
+              .attr("y", 20)
+              .attr("x", 130)
+              .style("font-weight", "bold")
+              .attr("id", "county_name")
+              .text(county_name);
 
-          zipData[2] = [
-            {
-              year: "2009",
-              values: [
-                {
-                  geo_level: "National",
-                  grpValue: Number(selected_zip.lost_elig_nat_HH2009)
-                },
-                {
-                  geo_level: "State",
-                  grpValue: Number(selected_zip.lost_elig_state_HH2009)
-                },
-                {
-                  geo_level: "County",
-                  grpValue: Number(selected_zip.lost_elig_county_HH2009)
-                }
-              ]
-            },
-            {
-              year: "2017",
-              values: [
-                {
-                  geo_level: "National",
-                  grpValue: Number(selected_zip.lost_elig_nat_HH2017)
-                },
-                {
-                  geo_level: "State",
-                  grpValue: Number(selected_zip.lost_elig_state_HH2017)
-                },
-                {
-                  geo_level: "County",
-                  grpValue: Number(selected_zip.lost_elig_county_HH2017)
-                }
-              ]
-            }
-          ];
+            zipData[1] = [
+              {
+                year: "2009",
+                values: [
+                  {
+                    geo_level: "National",
+                    grpValue: Number(selected_zip.lost_elig_nat_pop2009)
+                  },
+                  {
+                    geo_level: "State",
+                    grpValue: Number(selected_zip.lost_elig_state_pop2009)
+                  },
+                  {
+                    geo_level: "County",
+                    grpValue: Number(selected_zip.lost_elig_county_pop2009)
+                  }
+                ]
+              },
+              {
+                year: "2017",
+                values: [
+                  {
+                    geo_level: "National",
+                    grpValue: Number(selected_zip.lost_elig_nat_pop2017)
+                  },
+                  {
+                    geo_level: "State",
+                    grpValue: Number(selected_zip.lost_elig_state_pop2017)
+                  },
+                  {
+                    geo_level: "County",
+                    grpValue: Number(selected_zip.lost_elig_county_pop2017)
+                  }
+                ]
+              }
+            ];
 
-          slice = d3
-            .select(".graph1")
-            .selectAll("svg")
-            .select("g")
-            .selectAll(".slice")
-            .data(zipData[1])
-            .enter()
-            .append("g")
-            .attr("class", "g")
-            .attr("transform", function(d) {
-              return "translate(" + x0(d.year) + ",0)";
-            });
+            zipData[2] = [
+              {
+                year: "2009",
+                values: [
+                  {
+                    geo_level: "National",
+                    grpValue: Number(selected_zip.lost_elig_nat_HH2009)
+                  },
+                  {
+                    geo_level: "State",
+                    grpValue: Number(selected_zip.lost_elig_state_HH2009)
+                  },
+                  {
+                    geo_level: "County",
+                    grpValue: Number(selected_zip.lost_elig_county_HH2009)
+                  }
+                ]
+              },
+              {
+                year: "2017",
+                values: [
+                  {
+                    geo_level: "National",
+                    grpValue: Number(selected_zip.lost_elig_nat_HH2017)
+                  },
+                  {
+                    geo_level: "State",
+                    grpValue: Number(selected_zip.lost_elig_state_HH2017)
+                  },
+                  {
+                    geo_level: "County",
+                    grpValue: Number(selected_zip.lost_elig_county_HH2017)
+                  }
+                ]
+              }
+            ];
 
-          slice
-            .selectAll("rect")
+            slice = d3
+              .select(".graph1")
+              .selectAll("svg")
+              .select("g")
+              .selectAll(".slice")
+              .data(zipData[1])
+              .enter()
+              .append("g")
+              .attr("class", "g")
+              .attr("transform", function(d) {
+                return "translate(" + x0(d.year) + ",0)";
+              });
+
+            slice
+              .selectAll("rect")
+              .data(function(d) {
+                return d.values;
+              })
+              .enter()
+              .append("rect")
+              .attr("width", x1.bandwidth())
+              .attr("x", function(d) {
+                return x1(d.geo_level);
+              })
+              .style("fill", function(d) {
+                return color(d.geo_level);
+              })
+              .attr("y", 0)
+              .attr("height", function(d) {
+                return y(0);
+              })
+              .on("mouseover", function(d) {
+                d3.select(this).style(
+                  "fill",
+                  d3.rgb(color(d.geo_level)).darker(2)
+                );
+              })
+              .on("mouseout", function(d) {
+                d3.select(this).style("fill", color(d.geo_level));
+              });
+
+            slice
+              .selectAll("rect")
+              .transition()
+              .delay(function(d) {
+                return Math.random() * 1000;
+              })
+              .duration(1000)
+              .attr("y", function(d) {
+                return 0;
+              })
+              .attr("height", function(d) {
+                return y(100* d.grpValue);
+              });
+
+              // data labels
+            slice.selectAll(".text")
             .data(function(d) {
               return d.values;
             })
-            .enter()
-            .append("rect")
-            .attr("width", x1.bandwidth())
-            .attr("x", function(d) {
-              return x1(d.geo_level);
-            })
-            .style("fill", function(d) {
-              return color(d.geo_level);
-            })
-            .attr("y", 0)
-            .attr("height", function(d) {
-              return y(0);
-            })
-            .on("mouseover", function(d) {
-              d3.select(this).style(
-                "fill",
-                d3.rgb(color(d.geo_level)).darker(2)
-              );
-            })
-            .on("mouseout", function(d) {
-              d3.select(this).style("fill", color(d.geo_level));
-            });
+              .enter()
+              .append("text")
+              .attr("class","label")
+              .attr("x", (function(d) { return x1(d.geo_level); }  ))
+              .attr("y", function(d) { return y(100 * d.grpValue + 1); })
+              .attr("dy", ".75em")
+              .attr("fill", "none")
+              .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
 
-          slice
-            .selectAll("rect")
-            .transition()
-            .delay(function(d) {
-              return Math.random() * 1000;
-            })
-            .duration(1000)
-            .attr("y", function(d) {
-              return 0;
-            })
-            .attr("height", function(d) {
-              return y(100* d.grpValue);
-            });
+              d3.selectAll(".label")
+                .transition()
+                .delay(2000)
+                .attr("fill", "black");
 
-            // data labels
-          slice.selectAll(".text")
-          .data(function(d) {
-            return d.values;
-          })
-            .enter()
-            .append("text")
-            .attr("class","label")
-            .attr("x", (function(d) { return x1(d.geo_level); }  ))
-            .attr("y", function(d) { return y(100 * d.grpValue + 1); })
-            .attr("dy", ".75em")
-            .attr("fill", "none")
-            .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
+            var slice2 = d3
+              .select(".graph2")
+              .selectAll("svg")
+              .select("g")
+              .selectAll(".slice2")
+              .data(zipData[2])
+              .enter()
+              .append("g")
+              .attr("class", "g")
+              .attr("transform", function(d) {
+                return "translate(" + x0(d.year) + ",0)";
+              });
 
-            d3.selectAll(".label")
+            slice2
+              .selectAll("rect")
+              .data(function(d) {
+                return d.values;
+              })
+              .enter()
+              .append("rect")
+              .attr("width", x1.bandwidth())
+              .attr("x", function(d) {
+                return x1(d.geo_level);
+              })
+              .style("fill", function(d) {
+                return color(d.geo_level);
+              })
+              .attr("y", 0)
+              .attr("height", function(d) {
+                return y(0);
+              })
+              .on("mouseover", function(d) {
+                d3.select(this).style(
+                  "fill",
+                  d3.rgb(color(d.geo_level)).darker(2)
+                );
+              })
+              .on("mouseout", function(d) {
+                d3.select(this).style("fill", color(d.geo_level));
+              });
+
+            slice2
+              .selectAll("rect")
               .transition()
-              .delay(2000)
-              .attr("fill", "black");
+              .delay(function(d) {
+                return Math.random() * 1000;
+              })
+              .duration(1000)
+              .attr("y", function(d) {
+                return 0;
+              })
+              .attr("height", function(d) {
+                return y(100*d.grpValue);
+              });
 
-          var slice2 = d3
-            .select(".graph2")
-            .selectAll("svg")
-            .select("g")
-            .selectAll(".slice2")
-            .data(zipData[2])
-            .enter()
-            .append("g")
-            .attr("class", "g")
-            .attr("transform", function(d) {
-              return "translate(" + x0(d.year) + ",0)";
-            });
-
-          slice2
-            .selectAll("rect")
+              // data labels
+            slice2.selectAll(".text")
             .data(function(d) {
               return d.values;
             })
-            .enter()
-            .append("rect")
-            .attr("width", x1.bandwidth())
-            .attr("x", function(d) {
-              return x1(d.geo_level);
-            })
-            .style("fill", function(d) {
-              return color(d.geo_level);
-            })
-            .attr("y", 0)
-            .attr("height", function(d) {
-              return y(0);
-            })
-            .on("mouseover", function(d) {
-              d3.select(this).style(
-                "fill",
-                d3.rgb(color(d.geo_level)).darker(2)
-              );
-            })
-            .on("mouseout", function(d) {
-              d3.select(this).style("fill", color(d.geo_level));
-            });
+              .enter()
+              .append("text")
+              .attr("class","label")
+              .attr("x", (function(d) { return x1(d.geo_level); }  ))
+              .attr("y", function(d) { return y(100*d.grpValue + 1); })
+              .attr("dy", ".75em")
+              .attr("fill", "none")
+              .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
 
-          slice2
-            .selectAll("rect")
-            .transition()
-            .delay(function(d) {
-              return Math.random() * 1000;
-            })
-            .duration(1000)
-            .attr("y", function(d) {
-              return 0;
-            })
-            .attr("height", function(d) {
-              return y(100*d.grpValue);
-            });
+              d3.selectAll(".label")
+                .transition()
+                .delay(2000)
+                .attr("fill", "black");
+          }
 
-            // data labels
-          slice2.selectAll(".text")
-          .data(function(d) {
-            return d.values;
-          })
-            .enter()
-            .append("text")
-            .attr("class","label")
-            .attr("x", (function(d) { return x1(d.geo_level); }  ))
-            .attr("y", function(d) { return y(100*d.grpValue + 1); })
-            .attr("dy", ".75em")
-            .attr("fill", "none")
-            .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
-
-            d3.selectAll(".label")
-              .transition()
-              .delay(2000)
-              .attr("fill", "black");
-        });
-      } else {
-        console.log("invalid zip code");
-        d3.select("#error_message").remove();
-
-        d3.select(".error-box")
-          .append("text")
-          .attr("y", 0)
-          .attr("x", 500)
-          .attr("id", "error_message")
-          .style("font-weight", "bold")
-          .text("Not a valid zip code.");
-      }
+      });
     }
   }
 
