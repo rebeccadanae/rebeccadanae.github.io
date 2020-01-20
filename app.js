@@ -58,7 +58,7 @@
     var legend_county = d3.select(".county");
     legend_state
       .append("text")
-      .attr("y", 30)
+      .attr("y", 20)
       .attr("x", 130)
       .style("font-weight", "bold")
       .attr("id", "state_name")
@@ -66,7 +66,7 @@
 
     legend_county
       .append("text")
-      .attr("y", 30)
+      .attr("y", 20)
       .attr("x", 130)
       .style("font-weight", "bold")
       .attr("id", "county_name")
