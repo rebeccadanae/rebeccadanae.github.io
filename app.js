@@ -104,7 +104,7 @@
         0,
         d3.max(zipData[i], function(year) {
           return d3.max(year.values, function(d) {
-            return d.grpValue;
+            return 100*d.grpValue;
           });
         })
       ]);
@@ -171,7 +171,7 @@
         })
         .attr("y", 0)
         .attr("height", function(d) {
-          return y(d.grpValue);
+          return y(100*d.grpValue);
         })
         .on("mouseover", function(d) {
           d3.select(this).style("fill", d3.rgb(color(d.geo_level)).darker(2));
@@ -189,7 +189,7 @@
         .append("text")
         .attr("class","label")
         .attr("x", (function(d) { return x1(d.geo_level); }  ))
-        .attr("y", function(d) { return y(d.grpValue - .05); })
+        .attr("y", function(d) { return y(100*d.grpValue + 1); })
         .attr("dy", ".75em")
         .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
     }
@@ -383,7 +383,7 @@
               return 0;
             })
             .attr("height", function(d) {
-              return y(d.grpValue);
+              return y(100* d.grpValue);
             });
 
             // data labels
@@ -395,7 +395,7 @@
             .append("text")
             .attr("class","label")
             .attr("x", (function(d) { return x1(d.geo_level); }  ))
-            .attr("y", function(d) { return y(d.grpValue - .05); })
+            .attr("y", function(d) { return y(100 * d.grpValue + 1); })
             .attr("dy", ".75em")
             .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
 
@@ -451,7 +451,7 @@
               return 0;
             })
             .attr("height", function(d) {
-              return y(d.grpValue);
+              return y(100*d.grpValue);
             });
 
             // data labels
@@ -463,7 +463,7 @@
             .append("text")
             .attr("class","label")
             .attr("x", (function(d) { return x1(d.geo_level); }  ))
-            .attr("y", function(d) { return y(d.grpValue - .05); })
+            .attr("y", function(d) { return y(100*d.grpValue + 1); })
             .attr("dy", ".75em")
             .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
         });
