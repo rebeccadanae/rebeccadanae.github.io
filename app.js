@@ -53,23 +53,24 @@
     ];
 
     //Initial graph setup
-    var legend = d3.select(".legend-svg");
-
-    legend
+    var legend_nat = d3.select(".national");
+    var legend_state = d3.select(".state");
+    var legend_county = d3.select(".county");
+    legend_state
       .append("text")
       .attr("y", 30)
       .attr("x", 130)
       .style("font-weight", "bold")
       .attr("id", "state_name")
-      .text("State");
+      .text("District of Columbia");
 
-    legend
+    legend_county
       .append("text")
       .attr("y", 30)
-      .attr("x", 230)
+      .attr("x", 130)
       .style("font-weight", "bold")
       .attr("id", "county_name")
-      .text("County");
+      .text("District of Columbia");
 
     var margin = { top: 60, right: 60, bottom: 100, left: 100 },
       width = 400 - margin.left - margin.right,
@@ -242,7 +243,7 @@
           var state_name = selected_zip.stname;
           var county_name = selected_zip.ctyname;
 
-          legend
+          legend_state
             .append("text")
             .attr("y", 30)
             .attr("x", 130)
@@ -250,10 +251,10 @@
             .attr("id", "state_name")
             .text(state_name);
 
-          legend
+          legend_county
             .append("text")
             .attr("y", 30)
-            .attr("x", 230)
+            .attr("x", 130)
             .style("font-weight", "bold")
             .attr("id", "county_name")
             .text(county_name);
