@@ -205,7 +205,7 @@
     });
 
     function reset() {
-      d3.selectAll("#error_message, .label").remove();
+      d3.selectAll("#error_message, .label, #county_name, #state_name").remove();
       d3.selectAll("rect")
         .transition()
         .delay(function(d) {
@@ -213,6 +213,22 @@
         })
         .duration(1000)
         .attr("height", y(0));
+
+        legend_state
+          .append("text")
+          .attr("y", 20)
+          .attr("x", 130)
+          .style("font-weight", "bold")
+          .attr("id", "state_name")
+          .text("State");
+
+        legend_county
+          .append("text")
+          .attr("y", 20)
+          .attr("x", 130)
+          .style("font-weight", "bold")
+          .attr("id", "county_name")
+          .text("County");
     }
 
     //trigger when go button is clicked
