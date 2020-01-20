@@ -397,7 +397,13 @@
             .attr("x", (function(d) { return x1(d.geo_level); }  ))
             .attr("y", function(d) { return y(100 * d.grpValue + 1); })
             .attr("dy", ".75em")
+            .attr("fill", "none")
             .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
+
+            d3.selectAll(".label")
+              .transition()
+              .delay(2000)
+              .attr("fill", "black");
 
           var slice2 = d3
             .select(".graph2")
@@ -465,7 +471,13 @@
             .attr("x", (function(d) { return x1(d.geo_level); }  ))
             .attr("y", function(d) { return y(100*d.grpValue + 1); })
             .attr("dy", ".75em")
+            .attr("fill", "none")
             .text(function(d) { return (Math.round(1000 * d.grpValue)/10).toString().concat("%"); });
+
+            d3.selectAll(".label")
+              .transition()
+              .delay(2000)
+              .attr("fill", "black");
         });
       } else {
         console.log("invalid zip code");
