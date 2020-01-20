@@ -72,7 +72,7 @@
       .attr("id", "county_name")
       .text("District of Columbia");
 
-    var margin = { top: 60, right: 60, bottom: 100, left: 100 },
+    var margin = { top: 40, right: 40, bottom: 100, left: 80 },
       width = 400 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
 
@@ -142,7 +142,7 @@
         .text("Percent decrease in eligibility (".concat(ylabels[i - 1], ")"));
       svg[i]
         .append("text")
-        .attr("y", 285)
+        .attr("y", 315)
         .attr("x", 40)
         .style("font-weight", "bold")
         .style("font-size", 18)

@@ -5,7 +5,7 @@
   flex-wrap: wrap;
 }
 .tall{
-  height: 500px;
+  height: 400px;
 }
 .section {
   width: 100%;
@@ -60,7 +60,7 @@
   font-size: 11px;
 }
 /* Mobile Styles */
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 720px) {
 .logo-container{
   display:none;
 }
@@ -69,14 +69,20 @@
     margin: auto;
     text-align: center;
 }
+.graph1,
+.graph2{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
 }
 
 /* Tablet Styles */
-@media only screen and (min-width: 401px) and (max-width: 960px) {
+@media only screen and (min-width: 721px) and (max-width: 960px) {
 
   .graph1,
   .graph2{
-    width: 50%
+    width: 50%;
   }
 }
 
