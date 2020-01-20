@@ -258,6 +258,7 @@
             return d.zip == zip_code;
           })[0];
           if(typeof selected_zip == 'undefined'){
+            reset();
             d3.select("#error_message").remove();
 
             d3.select(".error-box")
@@ -267,6 +268,8 @@
               .attr("id", "error_message")
               .style("font-weight", "bold")
               .text("Not a valid zip code.");
+
+
           }else{
             var state_name = selected_zip.stname;
             var county_name = selected_zip.ctyname;
