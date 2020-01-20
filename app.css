@@ -34,11 +34,17 @@
   margin: 0 auto;
   text-align: center;
 }
-.tick line{
+.y .tick line{
   opacity: 0.2;
+}
+.x .tick line{
+  opacity: 0;
 }
 .tick text{
   font-size: 14px;
+}
+.grid line {
+  stroke: #ddd;
 }
 
 	.axis path,

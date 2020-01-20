@@ -84,9 +84,10 @@
     var y = d3.scaleLinear().rangeRound([0, height]);
     var color = d3.scaleOrdinal().range(["#053769", "#65a4e5", "#ff5e1a"]);
 
-    var xAxis = d3.axisTop().scale(x0);
+    var xAxis = d3.axisTop().tickSize(0).scale(x0);
 
-    var yAxis = d3.axisLeft().scale(y);
+    var yAxis = d3.axisLeft()
+                    .tickSize(-width).scale(y);
 
 
 
